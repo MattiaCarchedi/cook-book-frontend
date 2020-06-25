@@ -1,10 +1,11 @@
 import React from "react";
-import logo from "./logo.svg";
+import PageLayout from './pages/PageLayout';
+
 import "./App.css";
 
 function App() {
 	return <div className='App'>
-    <h1>Cook Book</h1>
+    <PageLayout />
   </div>
 }
 

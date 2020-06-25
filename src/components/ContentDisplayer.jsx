@@ -30,20 +30,20 @@ function TabPanel(props) {
 const ContentDisplayer1 = (props) => {
     return (
         <div>
-            <TabPanel value={props.value} index={0}>
+            <TabPanel value={props.randomNumber ? props.randomNumber : props.value} index={props.randomNumber ? props.randomNumber : props.value}>
                 <Card className={props.classes.root}>
                     <CardHeader
-                        title={props.recipes[0].title}
+                        title={props.recipes[props.randomNumber ? props.randomNumber : props.value].title}
                         subheader="September 14, 2016"
                     />
                     <CardMedia
                         className={props.classes.media}
-                        image={props.recipes[0].image}
-                        title={props.recipes[0].title}
+                        image={props.recipes[props.randomNumber ? props.randomNumber : props.value].image}
+                        title={props.recipes[props.randomNumber ? props.randomNumber : props.value].title}
                     />
                     <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            {props.recipes[0].description}
+                            {props.recipes[props.randomNumber ? props.randomNumber : props.value].description}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -68,11 +68,9 @@ const ContentDisplayer1 = (props) => {
                         <CardContent>
                             <Typography paragraph>Ingredients:</Typography>
                             <Typography paragraph>
-                                {props.recipes[0].ingredients[0].name} - Quantity: {props.recipes[0].ingredients[0].quantity} <br />
-                                {props.recipes[0].ingredients[1].name} - Quantity: {props.recipes[0].ingredients[1].quantity} <br />
-                                {props.recipes[0].ingredients[2].name} - Quantity: {props.recipes[0].ingredients[2].quantity} <br />
-                                {props.recipes[0].ingredients[3].name} - Quantity: {props.recipes[0].ingredients[3].quantity} <br />
-                                {props.recipes[0].ingredients[4].name} - Quantity: {props.recipes[0].ingredients[4].quantity} <br />
+                                {props.recipes[props.randomNumber ? props.randomNumber : props.value].ingredients.map(value => {
+                                    return <>{value.name} - Quantity: {value.quantity}g {<br />}{<br />}</>
+                                })}
                             </Typography>
                             <Typography paragraph>
                                 Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high

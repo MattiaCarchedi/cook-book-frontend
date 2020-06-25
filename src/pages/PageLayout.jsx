@@ -3,15 +3,12 @@ import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 import TabDisplayer from '../components/TabDisplayer';
-import ContentDisplayer1 from '../components/ContentDisplayer1';
-import ContentDisplayer2 from '../components/ContentDisplayer2';
-import ContentDisplayer3 from '../components/ContentDisplayer3';
-import ContentDisplayer4 from '../components/ContentDisplayer4';
-import ContentDisplayer5 from '../components/ContentDisplayer5';
+import ContentDisplayer from '../components/ContentDisplayer';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
+        margin: '0 auto'
     },
     media: {
         height: 0,
@@ -33,13 +30,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PageLayout() {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
     const [recipes, setRecipes] = useState([]);
     const [fetchStatus, setFetchStatus] = useState('IDLE');
     const [errMessage, setErrMessage] = useState(null);
+    const [randomNumber, setRandomNumber] = useState(null);
+    const random = Math.abs(Math.round(Math.random() * recipes.length));
+
 
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -63,48 +63,40 @@ export default function PageLayout() {
         setValue(newValue);
     };
 
+    const handleRandom = () => {
+        setRandomNumber(random);
+    };
+
+    useEffect(() => {
+        if (value !== 5) {
+            setRandomNumber(null)
+        }
+    }, [handleRandom]);
+
+    console.log(randomNumber)
     return (
         <div>
             {fetchStatus === 'SUCCESS' && (
                 <div>
-                    <AppBar position="static">
-                        <TabDisplayer value={value} handleChange={handleChange} recipes={recipes} />
-                    </AppBar>
-                    <ContentDisplayer1
-                        value={value}
-                        recipes={recipes}
-                        classes={classes}
-                        expanded={expanded}
-                        handleExpandClick={handleExpandClick}
-                    />
-                    <ContentDisplayer2 
-                        value={value}
-                        recipes={recipes}
-                        classes={classes}
-                        expanded={expanded}
-                        handleExpandClick={handleExpandClick}
-                    />
-                    <ContentDisplayer3 
-                        value={value}
-                        recipes={recipes}
-                        classes={classes}
-                        expanded={expanded}
-                        handleExpandClick={handleExpandClick}
-                    />
-                    <ContentDisplayer4
-                        value={value}
-                        recipes={recipes}
-                        classes={classes}
-                        expanded={expanded}
-                        handleExpandClick={handleExpandClick}
-                    />
-                    <ContentDisplayer5
-                        value={value}
-                        recipes={recipes}
-                        classes={classes}
-                        expanded={expanded}
-                        handleExpandClick={handleExpandClick}
-                    />
+                    <div className='test'>
+                        <AppBar position="static">
+                            <TabDisplayer
+                                value={value}
+                                handleChange={handleChange}
+                                recipes={recipes}
+                                randomNumber={randomNumber}
+                                handleRandom={handleRandom}
+                            />
+                        </AppBar>
+                        <ContentDisplayer
+                            value={value}
+                            recipes={recipes}
+                            classes={classes}
+                            expanded={expanded}
+                            handleExpandClick={handleExpandClick}
+                            randomNumber={randomNumber}
+                        />
+                    </div>
                 </div>
             )}
         </div>

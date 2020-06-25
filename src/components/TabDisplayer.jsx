@@ -11,6 +11,9 @@ const TabDisplayer = (props) => {
                 <Tab label={props.recipes[2].title} />
                 <Tab label={props.recipes[3].title} />
                 <Tab label={props.recipes[4].title} />
+                <Tab label='Random Recipe' 
+                    onClick={props.handleRandom}
+                />
             </Tabs>
         </div>
     )
